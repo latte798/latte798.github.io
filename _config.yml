@@ -21,7 +21,7 @@
 title: WritePaper
 email: latte798@naver.com
 description: >- # this means to ignore newlines until "baseurl:"
- simple blog. 
+ tmp page 
 baseurl: "/" # the subpath of your site, e.g. /blog
 url: "https://latte798.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 domain: "latte798.github.io"
