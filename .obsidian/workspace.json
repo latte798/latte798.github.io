@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "testnav.md",
+                "file": "_posts/2026-05-12-5월1주차.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "testnav"
+              "title": "2026-05-12-5월1주차"
             }
           }
         ]
@@ -184,11 +184,12 @@
   },
   "active": "242caac23cd74c1d",
   "lastOpenFiles": [
+    "_posts/2026-05-12-5월2주차.md",
+    "testnav.md",
     "_site/testnav.html",
     "_config.yml~",
     "4913",
     "_posts/2026-05-12-5월1주차.md",
-    "testnav.md",
     "_sass/custom.scss~",
     "_sass/4913",
     "_includes/footer.html~",
@@ -196,8 +197,6 @@
     "_site/assets/css/style.css",
     "_site/assets/css",
     "assets/css/style.scss",
-    "assets/css",
-    "_posts/2026-05-12-5월2주차.md",
     "_posts/2026-05-09-example.md",
     "_posts/2026-05-12-테스트.md",
     "_posts/2026-05-12-띄어쓰기 있음.md",
