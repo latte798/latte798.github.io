@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_posts/2026-05-12-5월1주차.md",
+                "file": "testnav.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "2026-05-12-5월1주차"
+              "title": "testnav"
             }
           }
         ]
@@ -184,21 +184,22 @@
   },
   "active": "242caac23cd74c1d",
   "lastOpenFiles": [
-    "_site/weeklypaper/2026/05/12/5월2주차.html",
-    "_site/weeklypaper/2026/05/12",
-    "_site/weeklypaper/2026/05",
-    "_site/weeklypaper/2026",
-    "_site/weeklypaper",
-    "_site/2026/05/09/5월1주차.html",
-    "_site/2026/05/09",
-    "_posts/2026-05-12-5월2주차.md",
+    "_site/testnav.html",
+    "_config.yml~",
+    "4913",
     "_posts/2026-05-12-5월1주차.md",
+    "testnav.md",
+    "_sass/custom.scss~",
+    "_sass/4913",
+    "_includes/footer.html~",
+    "_includes/4913",
+    "_site/assets/css/style.css",
+    "_site/assets/css",
+    "assets/css/style.scss",
+    "assets/css",
+    "_posts/2026-05-12-5월2주차.md",
     "_posts/2026-05-09-example.md",
     "_posts/2026-05-12-테스트.md",
-    "_includes/post.html~",
-    "_includes/4913",
-    "_site/카/테/고/리/2026/05/12/테스트.html",
-    "_site/카/테/고/리/2026/05/12",
     "_posts/2026-05-12-띄어쓰기 있음.md",
     "_posts/2026-05-11-test.md",
     "about.md",
