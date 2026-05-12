@@ -1,0 +1,30 @@
+
+<div class="post-header">
+  {% if page.tags or page.categories %}
+  <div class="post-meta-extra">
+
+    {% if page.categories %}
+    <div class="post-categories">
+      categoty : 
+      {% for category in page.categories %}
+        <span class="meta-chip category-chip">
+          @{{ category }}
+        </span>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if page.tags %}
+    <div class="post-tags">
+      {% for tag in page.tags %}
+        <span class="meta-chip tag-chip">
+          #{{ tag }}
+        </span>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+  </div>
+  {% endif %}
+
+</div>
