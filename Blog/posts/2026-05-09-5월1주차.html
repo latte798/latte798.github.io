@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>
+      5월1주차 · writepaper
+    </title>
+    <meta name="description" content="simple memo share page">
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+
+    <script>
+      (function () {
+        var allowedThemes = ["light", "dark", "system"];
+        var savedTheme = "system";
+
+        try {
+          savedTheme = localStorage.getItem("theme-preference") || "system";
+        } catch (error) {
+          savedTheme = "system";
+        }
+
+        if (allowedThemes.indexOf(savedTheme) === -1) {
+          savedTheme = "system";
+        }
+
+        document.documentElement.dataset.theme = savedTheme;
+      })();
+    </script>
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <script src="/assets/js/theme.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+  <div class="site-header__inner">
+    <a class="site-title" href="/">
+      writepaper
+    </a>
+
+    
+      <nav class="site-nav" aria-label="main_page">
+        
+          <a
+            class="site-nav__link"
+            href="/"
+            
+          >
+            Home
+          </a>
+        
+          <a
+            class="site-nav__link"
+            href="/about/"
+            
+          >
+            About
+          </a>
+        
+      </nav>
+    
+  </div>
+</header>
+
+
+    <main class="main-content" id="main-content">
+      <article class="post">
+  <header class="post__header">
+    <h1 class="post__title">5월1주차</h1>
+
+    
+  <div class="post__dates">
+    
+      <p class="post__ctime">생성 - 2026-06-04 01:06</p>
+    
+    
+  </div>
+
+
+
+    
+      <div class="post__overview">
+        
+          <div class="post__taxonomy">
+            
+    <div class="tag_container">
+        
+            <span class="tag_contents">5월</span>
+        
+            <span class="tag_contents">weekly</span>
+        
+    </div>
+
+            
+    <div class="category_container">
+        
+            <span class="category_contents">weeklypaper</span>
+        
+    </div>
+
+          </div>
+        
+
+        
+      </div>
+    
+  </header>
+
+  <div class="post__content">
+    <h1 id="q-">Q .</h1>
+<hr />
+<ul>
+  <li>git rebase와 git merge의 차이점을 설명하고, 각각 어떤 상황에서 사용하는 것이 적절한지 설명해주세요.</li>
+  <li>git fetch와 git pull의 차이점을 설명하고, 각각을 사용하는 것이 적절한 상황을 설명해주세요.</li>
+</ul>
+
+<h1 id="a-git-rebase-와-merge-의-차이">A. git rebase 와 merge 의 차이</h1>
+<hr />
+<p>merge 는 <strong>두 브랜치를 하나로 합쳐서 하나의 브랜치로 만드는 것</strong> 이고,  rebase 는 <strong>현재 브랜치를 타겟 브랜치에서 뻗어나온 브랜치로 만드는 것</strong> 이다.</p>
+
+<p>때문에 과정과 결과에 소소한 차이가 있는데, 그 항목은 다음과 같다.</p>
+
+<ul>
+  <li>conflict 처리
+    <ul>
+      <li>merge : 브랜치의 최종 커밋끼리 생긴 충돌을 해결해 주어야 함.</li>
+      <li>rebase : 베이스가 될 <strong>브랜치의 모든 커밋에 대한 conflict</strong> 가 해결 되어야 함.</li>
+    </ul>
+  </li>
+  <li>결과
+    <ul>
+      <li>merge : 단일 브랜치의 최종 커밋</li>
+      <li>rebase :  베이스 브랜치의 최종 커밋과 그곳에서 분기한 현재 브랜치</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="ex-git-rabase-실습">ex) git rabase 실습</h2>
+<hr />
+<h3 id="개요">개요</h3>
+<hr />
+<p>브랜치는 다음과 같다</p>
+
+<ul>
+  <li>main
+    <ul>
+      <li>init data add</li>
+    </ul>
+  </li>
+  <li>dev
+    <ul>
+      <li>dev data add</li>
+    </ul>
+  </li>
+  <li>test
+    <ul>
+      <li>test data add</li>
+      <li>test2 data add</li>
+    </ul>
+  </li>
+</ul>
+
+<p>dev 를 test 브랜치로 리베이스 할 때, 어떤 일들이 진행되는가를 실습해서 적어놓았다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># all log status</span>
+<span class="nv">$ </span>git log <span class="nt">--all</span> <span class="nt">--graph</span> <span class="nt">--oneline</span>
+<span class="k">*</span> 0d0e914 <span class="o">(</span><span class="nb">test</span><span class="o">)</span> <span class="nb">test </span>data 2 added.
+<span class="k">*</span> 6431236 <span class="nb">test </span>data added.
+| <span class="k">*</span> 746c16c <span class="o">(</span>dev<span class="o">)</span> dev data added.
+|/
+<span class="k">*</span> 4088d7c <span class="o">(</span>main<span class="o">)</span> initiation
+</code></pre></div></div>
+
+<h3 id="예상되는-문제">예상되는 문제</h3>
+<hr />
+<p>dev 와 test 브랜치의 내용에 공통 데이터가 아닌 부분이 있어서 confilict 가 생길 것이다.</p>
+
+<blockquote>
+  <p>conflict 처리</p>
+
+  <p>dev 의 커밋들을 차례차례 적용하면서 진행한다.
+즉 dev 의 커밋이 test 의 커밋들과 컨플릭트가 생기지 않을 때 까지 해야한다.
+그리고 위 과정을 모든 dev 의 커밋에 적용될때까지 한다.</p>
+</blockquote>
+
+<h3 id="실제">실제</h3>
+<hr />
+<p>실제 conflict 이후, <code class="language-plaintext highlighter-rouge">--continue | --abort  | --skip</code> 을 옵션으로 넣어서 진행 할 수 있다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">--continue</code> : 충돌 해결 후, 리베이스 계속 진행</li>
+  <li><code class="language-plaintext highlighter-rouge">--abort</code> : 리베이스를 중지하고, 리베이스 이전상태로 복귀</li>
+  <li><code class="language-plaintext highlighter-rouge">--skip</code> : 현재 커밋을 건너뛰고 진행</li>
+</ul>
+
+<p>충돌 처리 후 실제 진행된 로그들은 다음과 같다</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># run command</span>
+<span class="nv">$ </span>git rebase <span class="nb">test</span>
+<span class="nv">$ </span>git log <span class="nt">--all</span> <span class="nt">--oneline</span> <span class="nt">--graph</span>
+<span class="k">*</span> 25b8893 <span class="o">(</span>HEAD -&gt; dev<span class="o">)</span> dev data added.
+<span class="k">*</span> 0d0e914 <span class="o">(</span><span class="nb">test</span><span class="o">)</span> <span class="nb">test </span>data 2 added.
+<span class="k">*</span> 6431236 <span class="nb">test </span>data added.
+<span class="k">*</span> 4088d7c <span class="o">(</span>main<span class="o">)</span> initiation
+</code></pre></div></div>
+
+<p>데이터의 내용은 다음과 같다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># in dev</span>
+user@~/Local_Documents/_Codeit_Bootcamp/Code<span class="o">(</span>dev<span class="o">)</span><span class="nv">$ </span><span class="nb">cat </span>text1.txt
+initiation state int text1
+
+dev data text.
+
+this is <span class="nb">test </span>data <span class="k">in </span>this
+
+this is <span class="nb">test </span>data 2
+
+<span class="c"># in test</span>
+user@~/Local_Documents/_Codeit_Bootcamp/Code <span class="o">(</span><span class="nb">test</span><span class="o">)</span><span class="nv">$ </span><span class="nb">cat </span>text1.txt
+initiation state int text1
+
+this is <span class="nb">test </span>data <span class="k">in </span>this
+
+this is <span class="nb">test </span>data 2
+
+</code></pre></div></div>
+
+<p>즉 test 의 아래에 dev를 만든것 처럼 브랜치가  이동된다.</p>
+
+<h1 id="a-git-fetch-와-git-pull-의-차이">A. git fetch 와 git pull 의 차이</h1>
+<hr />
+<p>Fetch 는 현재 내 폴더의 상태를 유지하면서 remote 의 파일을 쓰는 것. 
+pull 은 remote 의 상태를 그대로 복원하는 것 이다.</p>
+
+<blockquote>
+  <p>pull 을 할 시, 이미 내 작업 공간내의 파일이 존재하고, 그 파일이 원격 레포지토리와 다른 커밋을 가진다면, 에러를 뱉으면서 풀링이 취소된다.</p>
+</blockquote>
+
+
+  </div>
+</article>
+
+    </main>
+
+    <div class="theme-switcher" role="group" aria-label="화면 테마 선택">
+  <button class="theme-switcher__button" type="button" data-theme-value="light" aria-pressed="false">
+    라이트
+  </button>
+  <button class="theme-switcher__button" type="button" data-theme-value="dark" aria-pressed="false">
+    블랙
+  </button>
+  <button class="theme-switcher__button" type="button" data-theme-value="system" aria-pressed="false">
+    시스템
+  </button>
+</div>
+
+  </body>
+</html>

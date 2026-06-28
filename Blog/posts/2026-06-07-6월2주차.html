@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>
+      6월2주차 · writepaper
+    </title>
+    <meta name="description" content="simple memo share page">
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+
+    <script>
+      (function () {
+        var allowedThemes = ["light", "dark", "system"];
+        var savedTheme = "system";
+
+        try {
+          savedTheme = localStorage.getItem("theme-preference") || "system";
+        } catch (error) {
+          savedTheme = "system";
+        }
+
+        if (allowedThemes.indexOf(savedTheme) === -1) {
+          savedTheme = "system";
+        }
+
+        document.documentElement.dataset.theme = savedTheme;
+      })();
+    </script>
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <script src="/assets/js/theme.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+  <div class="site-header__inner">
+    <a class="site-title" href="/">
+      writepaper
+    </a>
+
+    
+      <nav class="site-nav" aria-label="main_page">
+        
+          <a
+            class="site-nav__link"
+            href="/"
+            
+          >
+            Home
+          </a>
+        
+          <a
+            class="site-nav__link"
+            href="/about/"
+            
+          >
+            About
+          </a>
+        
+      </nav>
+    
+  </div>
+</header>
+
+
+    <main class="main-content" id="main-content">
+      <article class="post">
+  <header class="post__header">
+    <h1 class="post__title">6월2주차</h1>
+
+    
+  <div class="post__dates">
+    
+      <p class="post__ctime">생성 - 2026-06-08 18:52</p>
+    
+    
+  </div>
+
+
+
+    
+      <div class="post__overview">
+        
+          <div class="post__taxonomy">
+            
+    <div class="tag_container">
+        
+            <span class="tag_contents">5월</span>
+        
+            <span class="tag_contents">weekly</span>
+        
+    </div>
+
+            
+    <div class="category_container">
+        
+            <span class="category_contents">weeklypaper</span>
+        
+    </div>
+
+          </div>
+        
+
+        
+      </div>
+    
+  </header>
+
+  <div class="post__content">
+    <h1 id="q">Q.</h1>
+<hr />
+<ul>
+  <li>웹 서버(Web Server)와 WAS(Web Application Server)의 차이를 설명하고, Spring Boot의 내장 톰캣이 이 둘 중 어디에 해당하는지 설명해주세요.</li>
+  <li>Spring Boot에서 사용되는 다양한 Bean 등록 방법들에 대해 설명하고, 각각의 장단점을 비교하세요.</li>
+</ul>
+
+<h1 id="a">A.</h1>
+<hr />
+<h2 id="1-웹서버-와-was-의-차이-springboot-의-내장-톰캣은-어디에-소속되는가">1. 웹서버 와 WAS 의 차이, SPRINGBOOT 의 내장 톰캣은 어디에 소속되는가?</h2>
+<hr />
+<p>웹 서버와 WAS 의 차이는 <strong>동적인 애플리케이션 로직</strong>을 실행할 수 있는가 이다.</p>
+
+<p>웹서버는 요청에 대한 정적 리소스의 제공이 주 역할이다.
+nginx, apache 와 같은 서버가 해당 역할을 한다.</p>
+
+<p>WAS 는 요청에 대해 프로그램 코드를 실행 할 수 있는 서버이다.</p>
+
+<p>Spring boot 톰캣 의 경우,</p>
+
+<p>2000년대부터 2013년대에 별도로 설치하는 서버였다.</p>
+
+<p>2014년 부터 라이브러리로 감싸 스프링 자체에 내장된 WAS 로서 사용되기 시작했다.</p>
+
+<h2 id="2-springboot-에서-사용되는-다양한-bean-와-각각의-장단점">2. SpringBoot 에서 사용되는 다양한 Bean 와 각각의 장단점.</h2>
+<hr />
+<p>SpringBoot 의 스테레오타입 어노테이션은 다음과 같다.</p>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">@Compnent</code>
+기본이 되는 어노테이션. <code class="language-plaintext highlighter-rouge">@Bean</code>으로 발행하는 과정을 자동화 한 어노테이션.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">@Service</code>
+서비스 계층을 나타내는 어노테이션. <code class="language-plaintext highlighter-rouge">@Component</code>와 차이는 없다. 가독성을 위해 구분해서 사용하는 어노테이션.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">@Repository</code>
+레파지토리 계층을 나타내는 어노테이션. 형태는 거의 같으나, 데이터 소스에서 나온 예외들을 <code class="language-plaintext highlighter-rouge">DataAccessException</code> 으로 모아서 반환한다.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">@Controller / @RestController</code>
+웹 요청을 처리하는 컨트롤러를 나타내는 어노테이션. 스프링 웹 요청 핸들러에 등록되어, 요청에 따라 작성된 매서드를 실행한다.</p>
+  </li>
+</ul>
+
+  </div>
+</article>
+
+    </main>
+
+    <div class="theme-switcher" role="group" aria-label="화면 테마 선택">
+  <button class="theme-switcher__button" type="button" data-theme-value="light" aria-pressed="false">
+    라이트
+  </button>
+  <button class="theme-switcher__button" type="button" data-theme-value="dark" aria-pressed="false">
+    블랙
+  </button>
+  <button class="theme-switcher__button" type="button" data-theme-value="system" aria-pressed="false">
+    시스템
+  </button>
+</div>
+
+  </body>
+</html>

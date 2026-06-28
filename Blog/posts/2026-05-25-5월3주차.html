@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>
+      5월3주차 · writepaper
+    </title>
+    <meta name="description" content="simple memo share page">
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+
+    <script>
+      (function () {
+        var allowedThemes = ["light", "dark", "system"];
+        var savedTheme = "system";
+
+        try {
+          savedTheme = localStorage.getItem("theme-preference") || "system";
+        } catch (error) {
+          savedTheme = "system";
+        }
+
+        if (allowedThemes.indexOf(savedTheme) === -1) {
+          savedTheme = "system";
+        }
+
+        document.documentElement.dataset.theme = savedTheme;
+      })();
+    </script>
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <script src="/assets/js/theme.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+  <div class="site-header__inner">
+    <a class="site-title" href="/">
+      writepaper
+    </a>
+
+    
+      <nav class="site-nav" aria-label="main_page">
+        
+          <a
+            class="site-nav__link"
+            href="/"
+            
+          >
+            Home
+          </a>
+        
+          <a
+            class="site-nav__link"
+            href="/about/"
+            
+          >
+            About
+          </a>
+        
+      </nav>
+    
+  </div>
+</header>
+
+
+    <main class="main-content" id="main-content">
+      <article class="post">
+  <header class="post__header">
+    <h1 class="post__title">5월3주차</h1>
+
+    
+  <div class="post__dates">
+    
+      <p class="post__ctime">생성 - 2026-06-05 00:17</p>
+    
+    
+  </div>
+
+
+
+    
+      <div class="post__overview">
+        
+          <div class="post__taxonomy">
+            
+    <div class="tag_container">
+        
+            <span class="tag_contents">5월</span>
+        
+            <span class="tag_contents">weekly</span>
+        
+    </div>
+
+            
+    <div class="category_container">
+        
+            <span class="category_contents">weeklypaper</span>
+        
+    </div>
+
+          </div>
+        
+
+        
+      </div>
+    
+  </header>
+
+  <div class="post__content">
+    <h1 id="q">Q.</h1>
+<hr />
+<ol>
+  <li>
+    <p>HashSet의 내부 동작 방식과 중복 제거 메커니즘을 설명하고, HashSet이 효율적인 중복 체크를 할 수 있는 이유를 설명해주세요.</p>
+  </li>
+  <li>
+    <p>O(n)과 O(log n)의 성능 차이를 실생활 예시를 들어 설명하고, 데이터의 크기가 1백만 개일 때 각각 대략 몇 번의 연산이 필요한지 비교해주세요.</p>
+  </li>
+</ol>
+
+<h1 id="a">A.</h1>
+<hr />
+<h2 id="1-hashset">1. HashSet</h2>
+<hr />
+<p><code class="language-plaintext highlighter-rouge">HashaSet</code>은 <code class="language-plaintext highlighter-rouge">Set</code> 인터페이스를 준수하는 구현체 중의 하나이다.</p>
+
+<ul>
+  <li>중복을 허용하지 않고</li>
+  <li>순서가 없는</li>
+</ul>
+
+<p>객체들의 집합이다.</p>
+
+<p>내부적으로 <code class="language-plaintext highlighter-rouge">HashMap</code> 을 사용해서 <code class="language-plaintext highlighter-rouge">HashMap.values()</code> 를 반환하는 형식으로 객체를 반환한다.</p>
+
+<p>인덱스 테이블은 해당 <strong>객체의 해시값(<code class="language-plaintext highlighter-rouge">hashCode()</code>)을 키</strong>로, <strong>값은 객체 그 자체</strong>를 쓴다.</p>
+
+<blockquote>
+  <p>해시값의 비교는 <code class="language-plaintext highlighter-rouge">.equals()</code> 를 사용해서 비교를 하고, 값이 같은지, 다른지에 따라 정수값을 반환해서 여부를 판단한다.</p>
+</blockquote>
+
+<p>즉, 구조적으로 해시값을 테이블 인덱스로 활용해서 <strong>같은 해시값을 키값으로 가진다면 같은 주소에 참조</strong>되는 형태인 것 이다.</p>
+
+<p>이러한 구조 때문에,</p>
+<ul>
+  <li>리스트 내부의 객체에 순서가 없다.</li>
+  <li><strong>같은 해시값을 가진 객체(중복 객체)</strong> 의 체크가 쉽다.
+    <ul>
+      <li>리스트를 순회하는 대신, 해시값을 주소로 참조되는 객체가 있는지 체크하면 된다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="2-시간복잡도">2. 시간복잡도</h2>
+<hr />
+<p><code class="language-plaintext highlighter-rouge">O(n)</code> 의 경우는 데이터의 크기가 커지면 데이터의 갯수에 비례하게 커지는 로직을 뜻한다.
+단일 차원 배열의 순회와 같은 작업이 해당된다.</p>
+<ul>
+  <li>배열의 크기가 1개 커지면, 순회작업의 횟수(객체를 체크하는 횟수) 도 1개 늘어난다.</li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">O(log n)</code> 의 경우는 <code class="language-plaintext highlighter-rouge">N</code>개의 객체를 <code class="language-plaintext highlighter-rouge">log(2) N</code> 회만큼 연산하는 로직을 뜻한다.
+예를들어, <strong>1부터 10까지 사이의 임의의 숫자 하나를 이분법으로 맞추는 작업</strong>( 이진트리의 특정 최종 자식 노드를 찾는 로직과 비슷) 이 해당된다.</p>
+
+<p>구체적인 실생활 예시는 다음과 같다.</p>
+
+<ul>
+  <li>O(n) : 선형 탐색
+    <ul>
+      <li>객체 순화, 책에서 원하는 페이지를 처음부터 넘겨가며 찾는 방식 등.</li>
+    </ul>
+  </li>
+  <li>O(log n) : 이진 탐색
+    <ul>
+      <li>업,다운 게임</li>
+      <li>책을 반으로 접어 찾기 등</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ex)
+고른 숫자 : 4
+
+5인가? down (1,2,3,4)
+2인가? up (3,4)
+3인가? up (4)
+=&gt; 찾는 객체 확정
+
+연산횟수 : 3
+log(2) 10 =&gt; 3.3... 
+</code></pre></div></div>
+
+<p>데이터의 갯수가 100만개가 있다면,</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">O(n)</code> - 100만 회</li>
+  <li><code class="language-plaintext highlighter-rouge">O(log n)</code> - <code class="language-plaintext highlighter-rouge">log 1000000 / log 2</code> = 약 20 회
+가 연산 횟수가 된다.</li>
+</ul>
+
+  </div>
+</article>
+
+    </main>
+
+    <div class="theme-switcher" role="group" aria-label="화면 테마 선택">
+  <button class="theme-switcher__button" type="button" data-theme-value="light" aria-pressed="false">
+    라이트
+  </button>
+  <button class="theme-switcher__button" type="button" data-theme-value="dark" aria-pressed="false">
+    블랙
+  </button>
+  <button class="theme-switcher__button" type="button" data-theme-value="system" aria-pressed="false">
+    시스템
+  </button>
+</div>
+
+  </body>
+</html>

@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>
+      5월2주차 · writepaper
+    </title>
+    <meta name="description" content="simple memo share page">
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+
+    <script>
+      (function () {
+        var allowedThemes = ["light", "dark", "system"];
+        var savedTheme = "system";
+
+        try {
+          savedTheme = localStorage.getItem("theme-preference") || "system";
+        } catch (error) {
+          savedTheme = "system";
+        }
+
+        if (allowedThemes.indexOf(savedTheme) === -1) {
+          savedTheme = "system";
+        }
+
+        document.documentElement.dataset.theme = savedTheme;
+      })();
+    </script>
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <script src="/assets/js/theme.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+  <div class="site-header__inner">
+    <a class="site-title" href="/">
+      writepaper
+    </a>
+
+    
+      <nav class="site-nav" aria-label="main_page">
+        
+          <a
+            class="site-nav__link"
+            href="/"
+            
+          >
+            Home
+          </a>
+        
+          <a
+            class="site-nav__link"
+            href="/about/"
+            
+          >
+            About
+          </a>
+        
+      </nav>
+    
+  </div>
+</header>
+
+
+    <main class="main-content" id="main-content">
+      <article class="post">
+  <header class="post__header">
+    <h1 class="post__title">5월2주차</h1>
+
+    
+  <div class="post__dates">
+    
+      <p class="post__ctime">생성 - 2026-06-04 01:06</p>
+    
+    
+  </div>
+
+
+
+    
+      <div class="post__overview">
+        
+          <div class="post__taxonomy">
+            
+    <div class="tag_container">
+        
+            <span class="tag_contents">5월</span>
+        
+            <span class="tag_contents">weekly</span>
+        
+    </div>
+
+            
+    <div class="category_container">
+        
+            <span class="category_contents">weeklypaper</span>
+        
+    </div>
+
+          </div>
+        
+
+        
+      </div>
+    
+  </header>
+
+  <div class="post__content">
+    <h1 id="q">Q.</h1>
+<hr />
+<ol>
+  <li>객체지향 프로그래밍에서 “단일 책임 원칙(SRP)”과 “개방 폐쇄 원칙(OCP)” 에 대해 설명하고, 각각의 원칙이 적용된 코드를 작성하시오.</li>
+  <li>Stream API 의 map 과 flatMap 의 차이점을 설명하고 각각의 활용사례 예시코드를 작성하시오.</li>
+</ol>
+
+<h1 id="a">A.</h1>
+<hr />
+<h2 id="1-srp-와-ocp">1. SRP 와 OCP</h2>
+<hr />
+<h3 id="11-srp">1.1. SRP</h3>
+<hr />
+<p>단일 책임 원칙은 <strong>“하나의 객체는 하나의 명료한 기능(책임)을 가져야 한다.”</strong> 라는 원칙이다.</p>
+
+<p>이는 프로그램의 유지 보수와 관련이 있는 원칙이다.</p>
+
+<p>하나의 기능이란 말은 <strong>프로그램 안에서 담당하는 기능적 부분</strong>을 말한다.  프로그램의 설계에 따라 이 기능이 어떤 것을 담을지는 설계자의 자유이지만, 객체의 기능이 다른 여러 프로그램에서 쓰일수록 해당 객체의 변경시 미쳐지는 파급효과는 더욱 커진다.</p>
+
+<p>예시는 다음과 같다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">CustomClass</span> <span class="o">{</span>
+	<span class="o">...</span>
+	<span class="kd">public</span> <span class="nc">String</span> <span class="nf">GetDate</span><span class="o">(){</span>
+		<span class="o">...</span>
+		<span class="k">return</span> <span class="n">date</span> <span class="c1">// return "YYYY-mm-dd HH:MM:SS" format datestring </span>
+	<span class="o">}</span>
+	<span class="o">...</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">UseClass</span> <span class="o">{</span>
+	<span class="o">...</span>
+	<span class="kd">public</span> <span class="nc">String</span> <span class="nf">Year</span><span class="o">(){</span>
+		<span class="nc">String</span> <span class="n">year</span> <span class="o">=</span> <span class="nc">GetDate</span><span class="o">.</span><span class="na">subString</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span><span class="mi">4</span><span class="o">);</span>
+		<span class="o">...</span> <span class="c1">// year 을 사용하는 로직</span>
+	<span class="o">}</span>
+	<span class="o">...</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">UseClass2</span> <span class="o">{</span>
+	<span class="o">...</span>
+	<span class="kd">public</span> <span class="nc">String</span> <span class="nf">Hours</span><span class="o">(){</span>
+		<span class="nc">String</span> <span class="n">hours</span> <span class="o">=</span> <span class="nc">GetDate</span><span class="o">.</span><span class="na">subString</span><span class="o">(</span><span class="mi">11</span><span class="o">,</span><span class="mi">13</span><span class="o">);</span>
+		<span class="o">...</span> <span class="c1">// hours 을 사용하는 로직</span>
+	<span class="o">}</span>
+	<span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>이 예시에서 <code class="language-plaintext highlighter-rouge">GetDate()</code>를 살펴보자.</p>
+
+<p><code class="language-plaintext highlighter-rouge">GetDate()</code>매서드는 완성된 타임 스탬프 문자열을 반환하는 기능을 가지고 있다. 이 매서드 자체로는 큰 문제가 없다. 
+그러나, <code class="language-plaintext highlighter-rouge">UserClass</code> 들이 이를 사용할 때, 문자열을 잘라서 사용하는 것이 문제가 된다.</p>
+
+<p>이 예제에서는 <strong>완성된 타임스탬프</strong> 가 하나의 기능이 아니라, <code class="language-plaintext highlighter-rouge">year</code>, <code class="language-plaintext highlighter-rouge">hours</code> 와 같은 <strong>부분적인 문자열이 하나의 기능</strong> 을 담당하게 된다. 
+즉, <code class="language-plaintext highlighter-rouge">GetDate()</code> 매서드는</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">year</code> 을 반환하는 기능</li>
+  <li><code class="language-plaintext highlighter-rouge">hours</code> 를 반환하는 기능
+두 가지 기능을 담당하게 되는 것이다. 이런 경우가 단일 책임 원칙의 위반이다.</li>
+</ul>
+
+<blockquote>
+  <p>만약, date 의 반환 포맷이 달라지면, <strong><code class="language-plaintext highlighter-rouge">UserClass</code>들의 함수들도 전부 바꾸어야 한다.</strong></p>
+</blockquote>
+
+<p>그래서 <code class="language-plaintext highlighter-rouge">GetDate()</code> 함수를 <code class="language-plaintext highlighter-rouge">GetYear()</code> 과 <code class="language-plaintext highlighter-rouge">GetHours()</code> 처럼 작은 단위로 나누고, <code class="language-plaintext highlighter-rouge">GetDate()</code> 함수를 각 부분적인 스탬프를 모아서 반환하는 함수로 만들면 각 기능마다 객체를 할당한, 단일 책임 원칙을 충족한 코드가 된다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">CustomClass</span> <span class="o">{</span>
+	<span class="o">...</span>
+	<span class="kd">public</span> <span class="nc">String</span> <span class="nf">GetDate</span><span class="o">(){</span>
+		<span class="o">...</span>
+		<span class="k">return</span> <span class="n">fullFormatDate</span> <span class="c1">// return "YYYY-mm-dd HH:MM:SS" format datestring </span>
+	<span class="o">}</span>
+	
+	<span class="kd">public</span> <span class="nc">String</span> <span class="nf">GetYear</span><span class="o">(){</span>
+		<span class="o">...</span>
+		<span class="k">return</span> <span class="n">years</span> <span class="c1">// return "YYYY" format datestring </span>
+	<span class="o">}</span>
+	
+	<span class="kd">public</span> <span class="nc">String</span> <span class="nf">GetHours</span><span class="o">(){</span>
+		<span class="o">...</span>
+		<span class="k">return</span> <span class="n">hours</span> <span class="c1">// return "HH" format datestring </span>
+	<span class="o">}</span>
+	<span class="o">...</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">UseClass</span> <span class="o">{</span>
+	<span class="o">...</span>
+	<span class="kd">public</span> <span class="nc">String</span> <span class="nf">Year</span><span class="o">(){</span>
+		<span class="nc">String</span> <span class="n">year</span> <span class="o">=</span> <span class="nc">GetYear</span><span class="o">()</span>
+		<span class="o">...</span> <span class="c1">// year 을 사용하는 로직</span>
+	<span class="o">}</span>
+	<span class="o">...</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">UseClass2</span> <span class="o">{</span>
+	<span class="o">...</span>
+	<span class="kd">public</span> <span class="nc">String</span> <span class="nf">Hours</span><span class="o">(){</span>
+		<span class="nc">String</span> <span class="n">hours</span> <span class="o">=</span> <span class="nc">GetHours</span><span class="o">()</span>
+		<span class="o">...</span> <span class="c1">// hours 을 사용하는 로직</span>
+	<span class="o">}</span>
+	<span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>클래스의 경우도 비슷하다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//before</span>
+<span class="kd">class</span> <span class="nc">UsedClass</span> <span class="o">{</span>
+	<span class="o">...</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">method</span><span class="o">(){</span>
+		<span class="c1">// 이 메서드가 변하면</span>
+		<span class="o">...</span>
+	<span class="o">}</span>
+	
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">methodForFn1</span><span class="o">(){</span>
+		<span class="o">...</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">method</span><span class="o">()...</span> <span class="c1">// 이부분을 고치고</span>
+	<span class="o">}</span>
+	
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">methodForFn2</span><span class="o">(){</span>
+		<span class="o">...</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">method</span><span class="o">()...</span> <span class="c1">// 이부분도 고쳐야 한다.</span>
+	<span class="o">}</span>
+	
+	<span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">fn1</code></li>
+  <li><code class="language-plaintext highlighter-rouge">fn2</code>
+의 기능을 담당하는 UsedClass 를</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//after</span>
+<span class="kd">class</span> <span class="nc">UsedClass</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">methodForFn1</span><span class="o">(){</span> <span class="c1">// 이 기능을 고친다면</span>
+		<span class="o">...</span>
+			<span class="nc">ClassForFn1</span><span class="o">.</span><span class="na">Fn1</span><span class="o">()</span> 
+		<span class="o">...</span>
+	<span class="o">}</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">methodForFn2</span><span class="o">(){</span>
+		<span class="o">...</span>
+			<span class="nc">ClassForFn2</span><span class="o">.</span><span class="na">Fn2</span><span class="o">()</span>
+		<span class="o">...</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">ClassForFn1</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">Fn1</span><span class="o">(){...}</span> <span class="c1">// 이 부분만 고치면 된다.</span>
+<span class="o">}</span>
+
+
+<span class="kd">class</span> <span class="nc">ClassForFn2</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">Fn2</span><span class="o">(){...}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>와 같이,</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">fn1</code> =&gt; <code class="language-plaintext highlighter-rouge">ClassForFn1</code></li>
+  <li><code class="language-plaintext highlighter-rouge">fn2</code> =&gt; <code class="language-plaintext highlighter-rouge">ClassForFn2</code></li>
+  <li>메서드를 제공하는 유저 인터페이스 =&gt; <code class="language-plaintext highlighter-rouge">UsedMethod</code>
+로 하게되면 각각의 기능이 단일한 클래스를 가짐으로 SCP 를 지키는 코드가 되는걸 알 수 있다.
+    <h3 id="12-ocp">1.2. OCP</h3>
+    <hr />
+    <p>OCP 는 <strong>확장에는 개방적으로, 변경에는 폐쇄적으로 작성된 로직</strong> 이라는 원칙이다.</p>
+  </li>
+</ul>
+
+<p>즉, 변경사항이 들어왔을때</p>
+<ul>
+  <li>종래의 객체를 수정하지 않는다(변경에는 폐쇄적)</li>
+  <li>새로운 객체를 생성해서 변경을 커버한다(확장에는 개방적)
+으로 <strong>추상화, 다형성, 확장을 적극적으로 사용</strong> 하라는 것 이다.</li>
+</ul>
+
+<p>바로 예를 들어보자. 
+폴더의 파일을 관리하는 파일 시스템 매서드를 작성한다 생각해본다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">OfficeFileHandler</span> <span class="o">{</span>
+	<span class="o">...</span>
+	<span class="kd">public</span> <span class="nc">OfficeFile</span> <span class="nf">useFileFn</span><span class="o">(</span><span class="nc">String</span> <span class="n">path</span><span class="o">){...}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">OfficeFile</span><span class="o">{</span>
+	<span class="kd">private</span> <span class="nc">String</span> <span class="n">path</span><span class="o">;</span>
+	<span class="o">...</span>
+	<span class="kd">public</span> <span class="nc">String</span> <span class="nf">getExcelFileToJson</span><span class="o">(){...}</span>
+	<span class="kd">public</span> <span class="nc">String</span> <span class="nf">getWordFileToJson</span><span class="o">(){...}</span>
+	<span class="c1">// if you want to convert text file to json data.</span>
+	<span class="c1">// add new method.</span>
+	<span class="kd">public</span> <span class="nc">String</span> <span class="nf">getTextFileToJson</span><span class="o">(){...}</span>
+	<span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>위 예시의 <code class="language-plaintext highlighter-rouge">OfficeFile</code> 은 JSON 형식 데이터로 반환하는 매서드를 가지고 있는데, XML 이나 YAML, CVS 형식의 데이터로 받고 싶으면</p>
+<ol>
+  <li>매서드를 추가하거나</li>
+  <li>별도의 클래스를 만들거나
+두가지의 방법이 있다.</li>
+</ol>
+
+<p>그러나 두가지의 방법 모두 각각의 문제점이 있는데,</p>
+<ol>
+  <li>매서드를 추가할 시, <strong><code class="language-plaintext highlighter-rouge">OfficeFile</code> 클래스의 변경</strong>이 된다.</li>
+  <li>클래스를 추가할 시,  원래 클래스의 변경은 없지만, <strong>새로운 함수(ex - <code class="language-plaintext highlighter-rouge">getExcelFileToCVS()</code>)를 사용하는 코드를 작성</strong>해야 한다.</li>
+</ol>
+
+<p>때문에 기존의 코드를 최대한 변경 시키지 않기 위해 다형성과, 확장을 사용하는 것 이다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">OfficeFileHandler</span> <span class="o">{</span>
+	<span class="o">...</span>
+	<span class="kd">public</span> <span class="nc">OfficeFile</span> <span class="nf">useFileFn</span><span class="o">(</span><span class="nc">String</span> <span class="n">path</span><span class="o">){...}</span>
+<span class="o">}</span>
+
+<span class="kd">interface</span> <span class="nc">OfficeFile</span><span class="o">{</span>
+	<span class="o">...</span>
+	<span class="kd">public</span> <span class="nc">String</span> <span class="nf">getExcelFile</span><span class="o">(</span><span class="nc">String</span> <span class="n">path</span><span class="o">);</span>
+	<span class="kd">public</span> <span class="nc">String</span> <span class="nf">getWordFile</span><span class="o">(</span><span class="nc">String</span> <span class="n">path</span><span class="o">);</span>
+	<span class="kd">public</span> <span class="nc">String</span> <span class="nf">getTextFile</span><span class="o">(</span><span class="nc">String</span> <span class="n">path</span><span class="o">);</span>
+	<span class="o">...</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">ToJson</span> <span class="n">implaments</span> <span class="nc">OfficeFile</span> <span class="o">{</span>
+	<span class="nd">@Override</span>
+	<span class="kd">public</span> <span class="nc">String</span> <span class="nf">getExcelFile</span><span class="o">(</span><span class="nc">String</span> <span class="n">path</span><span class="o">){...}</span>
+	<span class="o">...</span>
+<span class="o">}</span>
+<span class="kd">class</span> <span class="nc">ToCVS</span> <span class="n">implaments</span> <span class="nc">OfficeFile</span> <span class="o">{</span>
+	<span class="nd">@Override</span>
+	<span class="kd">public</span> <span class="nc">String</span> <span class="nf">getExcelFile</span><span class="o">(</span><span class="nc">String</span> <span class="n">path</span><span class="o">){...}</span>
+	<span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>이렇게 작성할 경우, 객체 생성시의 클래스 변경 만으로 반환 되는 데이터의 형식을 바꿀 수 있다. 
+또한, Yaml 형식을 추가한다고 해도 <code class="language-plaintext highlighter-rouge">ToYaml</code> 과 같은 클래스를 추가하기만 하면 된다.</p>
+
+<p>기존 클래스의 변경은 적으며, 새로운 기능의 추가는 확장적으로 쉽게 처리할 수 있다.</p>
+
+<h2 id="2-streamapi-와-map--flatmap">2. StreamAPI 와 map / flatMap</h2>
+<hr />
+<p><code class="language-plaintext highlighter-rouge">map()</code>과 <code class="language-plaintext highlighter-rouge">flatMap()</code> 의 가장 큰 차이는 <strong>컬렉션의 순회 깊이를 얼마나 들어가느냐</strong> 라고 생각한다.</p>
+
+<p>바로 예시를 들어보자.</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">List</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">intArr</span> <span class="o">=</span> <span class="nc">List</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span><span class="mi">2</span><span class="o">,</span><span class="mi">3</span><span class="o">,</span><span class="mi">4</span><span class="o">,</span><span class="mi">5</span><span class="o">);</span>
+<span class="nc">List</span><span class="o">&lt;</span><span class="nc">Array</span><span class="o">[</span><span class="kt">int</span><span class="o">]&gt;</span> <span class="n">arrArr</span> <span class="o">=</span> <span class="nc">List</span><span class="o">.</span><span class="na">of</span><span class="o">([</span><span class="mi">1</span><span class="o">],[</span><span class="mi">2</span><span class="o">],[</span><span class="mi">3</span><span class="o">],[</span><span class="mi">4</span><span class="o">],[</span><span class="mi">5</span><span class="o">,</span><span class="mi">0</span><span class="o">]);</span>
+
+<span class="n">intArr</span><span class="o">.</span><span class="na">stream</span><span class="o">()</span>
+	<span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">n</span> <span class="o">-&gt;</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="o">)</span>
+	<span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">)</span> <span class="c1">// 3 4 5</span>
+
+
+<span class="n">arrArr</span><span class="o">.</span><span class="na">stream</span><span class="o">()</span>
+	<span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">n</span> <span class="o">-&gt;</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="o">)</span> <span class="c1">// exception! - type of n == Array</span>
+	<span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">)</span> 
+
+
+<span class="n">arrArr</span><span class="o">.</span><span class="na">stream</span><span class="o">()</span>
+	<span class="o">.</span><span class="na">flatMap</span><span class="o">(</span><span class="n">n</span> <span class="o">-&gt;</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="o">)</span> <span class="c1">// like [1,2,3,4,5,0] </span>
+	<span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">)</span> <span class="c1">// 3 4 5</span>
+</code></pre></div></div>
+
+<p>예시에서 본 것과 같이, map 은 컬렉션의 내부 요소를 그대로 확인한다. 이는 단점이자 장점인데,</p>
+
+<ul>
+  <li>단점
+    <ul>
+      <li>요소 내부가 원시 자료형이 아닐 경우, 각 요소마다 사용할 접근 로직을 한번 더 짜줘야 한다.</li>
+    </ul>
+  </li>
+  <li>장점
+    <ul>
+      <li>컬렉션의 <strong>구조가 유지된다</strong>.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">map()</code>장점에서 말한 것 처럼 <code class="language-plaintext highlighter-rouge">flatMap()</code>은 원래 <strong>객체의 구조가 “1단계 평탄화”</strong> 된다. 때문에 원래의 객체가 어떤 구조 였는지 결과물을 가지곤 알 수가 없다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">flatMap()</code>실습</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">List</span><span class="o">&lt;</span><span class="nc">List</span><span class="o">&lt;</span><span class="nc">List</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;&gt;&gt;</span> <span class="n">test</span> <span class="o">=</span>  <span class="c1">// [[[1,2],[3,4,5]],[[6,7],[9,10]]]</span>
+        <span class="nc">List</span><span class="o">.</span><span class="na">of</span><span class="o">(</span>  
+                <span class="nc">List</span><span class="o">.</span><span class="na">of</span><span class="o">(</span>  
+                        <span class="nc">List</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">),</span> <span class="nc">List</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">5</span><span class="o">)</span>  
+                <span class="o">),</span>  
+                <span class="nc">List</span><span class="o">.</span><span class="na">of</span><span class="o">(</span>  
+                        <span class="nc">List</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="mi">6</span><span class="o">,</span><span class="mi">7</span><span class="o">),</span> <span class="nc">List</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="mi">9</span><span class="o">,</span> <span class="mi">10</span><span class="o">)</span>  
+                <span class="o">)</span>  
+        <span class="o">);</span>  
+<span class="n">test</span><span class="o">.</span><span class="na">stream</span><span class="o">()</span>  
+        <span class="o">.</span><span class="na">flatMap</span><span class="o">(</span><span class="n">n</span> <span class="o">-&gt;</span> <span class="n">n</span><span class="o">.</span><span class="na">stream</span><span class="o">())</span>  
+        <span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+        
+<span class="c1">// result - 깊이 1까지 직렬화 됨.</span>
+<span class="c1">//[1, 2]</span>
+<span class="c1">//[3, 4, 5]</span>
+<span class="c1">//[6, 7]</span>
+<span class="c1">//[9, 10]</span>
+</code></pre></div></div>
+
+  </div>
+</article>
+
+    </main>
+
+    <div class="theme-switcher" role="group" aria-label="화면 테마 선택">
+  <button class="theme-switcher__button" type="button" data-theme-value="light" aria-pressed="false">
+    라이트
+  </button>
+  <button class="theme-switcher__button" type="button" data-theme-value="dark" aria-pressed="false">
+    블랙
+  </button>
+  <button class="theme-switcher__button" type="button" data-theme-value="system" aria-pressed="false">
+    시스템
+  </button>
+</div>
+
+  </body>
+</html>
